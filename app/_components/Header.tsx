@@ -12,8 +12,10 @@ import {
 } from "@heroui/react";
 import Image from "next/image";
 import { useState } from "react";
+import { UserButton, useUser } from "@clerk/nextjs";
 
 export default function Header() {
+  const { user, isSignedIn } = useUser();
   const MenuList = [
     {
       name: "Home",
@@ -72,7 +74,12 @@ export default function Header() {
         })}
       </NavbarContent>
       <NavbarContent justify="end">
-        <Button color="secondary">Get Started</Button>
+        <Link href="/dashboard">
+          <Button color="secondary">
+            {isSignedIn ? "Dashboard" : "Get Started"}
+          </Button>
+        </Link>
+        <UserButton />
       </NavbarContent>
     </Navbar>
   );
